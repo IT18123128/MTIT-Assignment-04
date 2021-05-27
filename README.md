@@ -11,7 +11,7 @@ This project is based on the SLIIT 4 Years Modern Topics in IT Module. This micr
 - Order Service
 - Payment Service
 - Account-service
-- Bank-service
+- Bank-service 🏦
 - Delivery-service
 - Dispute-service
 - Product-Cart-Service
