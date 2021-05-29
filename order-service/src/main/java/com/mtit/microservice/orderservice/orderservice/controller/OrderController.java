@@ -4,6 +4,7 @@ import com.mtit.microservice.orderservice.orderservice.exception.ResourceNotFoun
 import com.mtit.microservice.orderservice.orderservice.model.Order;
 import com.mtit.microservice.orderservice.orderservice.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -55,14 +56,18 @@ public class OrderController {
         order.setOrderDetails(orderInfo.getOrderDetails());
         order.setOrderDate(orderInfo.getOrderDate());
         orderRepository.save(order);
+
         return ResponseEntity.ok().body(order);
     }
 
     //delete the order
     @DeleteMapping("/orders/{id}")
     public ResponseEntity<?> deleteOrder(@PathVariable (value = "id") long orderId) throws ResourceNotFoundException {
-        orderRepository.findById(orderId).orElseThrow(() -> new ResourceNotFoundException("The Employee ID not found::" + orderId));
-        return ResponseEntity.ok().build();
+       Order order = orderRepository.findById(orderId).orElseThrow(() -> new ResourceNotFoundException("The Employee ID not found::" + orderId));
+
+       orderRepository.delete(order);
+
+        return new ResponseEntity<>( "Your age is Deleted Successfully", HttpStatus.OK);
     }
 
     //get order by customerCode
